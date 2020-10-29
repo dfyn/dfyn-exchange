@@ -1,15 +1,16 @@
 {
-  "name": "@uniswap/v2-core",
+  "name": "dfyn-exchange",
   "description": "🎛 Core contracts for the UniswapV2 protocol",
   "version": "1.0.1",
-  "homepage": "https://uniswap.org",
+  "homepage": "https://exchange.dfyn.com",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Uniswap/uniswap-v2-core"
+    "url": "https://github.com/dfyn/dfyn-exchange"
   },
   "keywords": [
-    "uniswap",
+    "dfyn",
     "ethereum",
+    "matic",
     "v2",
     "core",
     "uniswap-v2"
