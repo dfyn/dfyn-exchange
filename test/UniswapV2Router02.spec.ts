@@ -7,7 +7,6 @@ import IUniswapV2Pair from '../build/IUniswapV2Pair.json'
 
 import { v2Fixture } from './shared/fixtures'
 import { expandTo18Decimals, getApprovalDigest, MINIMUM_LIQUIDITY } from './shared/utilities'
-
 import DeflatingERC20 from '../build/DeflatingERC20.json'
 import { ecsign } from 'ethereumjs-util'
 
@@ -39,7 +38,6 @@ describe('UniswapV2Router02', () => {
   })
 
   it('quote', async () => {
-        console.log(await factory.pairCodeHash())
     expect(await router.quote(bigNumberify(1), bigNumberify(100), bigNumberify(200))).to.eq(bigNumberify(2))
     expect(await router.quote(bigNumberify(2), bigNumberify(200), bigNumberify(100))).to.eq(bigNumberify(1))
     await expect(router.quote(bigNumberify(0), bigNumberify(100), bigNumberify(200))).to.be.revertedWith(
@@ -204,15 +202,12 @@ describe('fee-on-transfer tokens', () => {
       MaxUint256
     )
     const { v, r, s } = ecsign(Buffer.from(digest.slice(2), 'hex'), Buffer.from(wallet.privateKey.slice(2), 'hex'))
-    const data = ecsign(Buffer.from(digest.slice(2), 'hex'), Buffer.from(wallet.privateKey.slice(2), 'hex'))
-    console.log(data)
     const DTTInPair = await DTT.balanceOf(pair.address)
     const WETHInPair = await WETH.balanceOf(pair.address)
     const liquidity = await pair.balanceOf(wallet.address)
     const totalSupply = await pair.totalSupply()
     const NaiveDTTExpected = DTTInPair.mul(liquidity).div(totalSupply)
     const WETHExpected = WETHInPair.mul(liquidity).div(totalSupply)
-    console.log(v,r,s)
     await pair.approve(router.address, MaxUint256)
     await router.removeLiquidityETHWithPermitSupportingFeeOnTransferTokens(
       DTT.address,
@@ -382,3 +377,4 @@ describe('fee-on-transfer tokens: reloaded', () => {
     })
   })
 })
+
